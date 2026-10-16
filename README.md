@@ -1,23 +1,26 @@
-# Trolyao Macro — Android MVP
+# Trolyao — Android source project
 
-Dự án Kotlin + Jetpack Compose, có:
-- Chọn ứng dụng đã cài (danh sách ứng dụng cục bộ).
-- Lưu lựa chọn và danh sách lệnh macro trên thiết bị.
-- Trình sửa lệnh: Click, MultiClick, Swipe, Delay, Long Click.
-- Accessibility Service dùng `dispatchGesture` để phát thao tác chạm; người dùng phải tự bật dịch vụ trong Cài đặt Android.
-- Overlay nổi khi dịch vụ trợ năng nhận thấy ứng dụng đã chọn đang ở trước màn hình.
-- Nút nổi chạy/dừng macro và mở màn hình ứng dụng.
+Android Kotlin + Jetpack Compose project with dark rounded UI and RGB accents.
 
-## Cài đặt / build
-1. Mở thư mục `Trolyao-Full` bằng Android Studio.
-2. Cài Android SDK 35 và JDK 17, chờ Gradle Sync.
-3. Build > Build APK(s), hoặc Run để cài trực tiếp.
-4. Mở app, chọn game, cấp quyền hiển thị trên ứng dụng khác.
-5. Vào Cài đặt Android > Trợ năng > Trolyao Macro Service và bật thủ công.
+## Floating Menu (exactly three items)
+- **Macro Runner** — sends one tap at the saved X/Y coordinate.
+- **Multiply Button Runner** — press and hold the button to repeat taps; release to stop.
+- **Tab** — opens the editor for X/Y, button size and opacity.
 
-## Giới hạn
-- Đây là MVP mã nguồn, không kèm APK đã build và chưa được kiểm thử trên thiết bị của bạn.
-- Android/nhà sản xuất có thể hạn chế overlay hoặc Accessibility Service; macro có thể không hoạt động trong một số game.
-- Tọa độ là pixel tuyệt đối trên màn hình, nên khác nhau giữa thiết bị/độ phân giải/hướng màn hình.
-- Không có chức năng né anti-cheat. Hãy dùng theo quy định của ứng dụng/game và tắt macro khi không cần.
-- Android yêu cầu người dùng tự cấp quyền hệ thống; app không thể tự bật Shizuku, overlay hay Accessibility Service.
+## Multiply behavior
+The configured target interval is **2 ms**. Android shell command startup and device scheduling take longer than 2 ms in many cases, so this is a requested loop interval, not a guarantee of 500 taps per second. Keep the device/game responsive and release the button to stop the loop. Shizuku permission is required for touch commands.
+
+## Main screen
+- Shizuku permission status and request button.
+- Overlay permission status and settings shortcut.
+- Select an app/game.
+- Foreground notification service toggle for the floating handle.
+
+## Build APK from a phone using GitHub Actions
+1. Extract this ZIP on the phone.
+2. Upload the contents of `Trolyao-Complete` into repository `hosylong15071974-pixel/Trolyao` (upload the files/folders, not just the ZIP).
+3. Open GitHub → repository → Actions → **Build Trolyao APK** → **Run workflow**.
+4. When the run succeeds, download artifact `Trolyao-debug-apk` and extract `app-debug.apk`.
+
+## Important status
+This is an updated source package, not a claim that every Android 15/Oppo feature has been device-tested. Actual touch frequency and whether a target game accepts Shizuku shell input vary by device and app. The project does not use AccessibilityService. Features that still need further implementation/testing include automatic foreground-game detection, multiple independent Runner instances, draggable on-screen coordinate pin, full multi-step macro playback, swipe/long-press wiring to the floating menu, RGB animation, and per-game profile management.

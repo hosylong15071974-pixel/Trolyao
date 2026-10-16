@@ -1,4 +1,1 @@
-<resources>
-    <string name="app_name">Trolyao Macro</string>
-    <string name="accessibility_description">Hiển thị nút macro nổi cho ứng dụng đã chọn và thực hiện chuỗi thao tác do người dùng cấu hình.</string>
-</resources>
+<resources><string name="app_name">Trolyao</string></resources>
